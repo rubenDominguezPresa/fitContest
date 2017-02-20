@@ -22,4 +22,14 @@ module ApplicationHelper
     image_tag 'default-avatar.jpg', id: 'image-preview',
                                     class: 'img-responsive img-circle profile-image'
   end
+
+
+  def minimize_profile_avatar_select(user)
+    
+          if user.avatar.exists?
+            return image_tag(user.avatar.url, size: '40x40', class: 'img-responsive img-circle profile-image')
+          else 
+            return image_tag('default-avatar.jpg', size: '40x40', class: 'img-circle')
+          end
+  end
 end

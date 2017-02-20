@@ -1,2 +1,9 @@
-= render 'posts/form'
-= render @posts
+.container.flex-row.row
+  .col-xs-5.col-sm-3.col-lg-4
+    .caption 
+      = render 'layouts/addPost'
+  .col-xs-6.col-sm-7.col-lg-8
+    .caption
+      = render 'posts/form' 
+      = render @posts
+																

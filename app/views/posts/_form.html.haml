@@ -9,7 +9,7 @@
               = f.error_notification
           .container-fluid
             .form-group.text-center
-              %h4 Upload an image:
+              %h4 New post:
               = f.input :image, label: false, input_html: { onChange: 'loadFile(event)' }
             .form-group.text-center
               = f.input :caption, label: false, placeholder: 'Add your caption'
