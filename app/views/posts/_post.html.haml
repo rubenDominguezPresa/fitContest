@@ -6,9 +6,12 @@
         =minimize_profile_avatar_select(post.user)
         //=image_tag(post.user.avatar.url(:medium),size: '40x40')
         =link_to post.user.user_name, profile_path(post.user.user_name)
+        - if post.challenge!=nil
+          =link_to ' #'+post.challenge.name, challenge_path(post.challenge) 
       .time-ago
         =time_ago_in_words post.created_at
     .image.center
+    - if post.image.exists?
       .container.flex-row.row
         .col-xs-5.col-sm-3.col-lg-4
           .caption
@@ -19,6 +22,12 @@
             .user-name
               =link_to post.user.user_name, profile_path(post.user.user_name)
               =post.caption
+    - else
+      .col-xs-5.col-sm-3.col-lg-3
+        .caption
+          .user-name
+            =link_to post.user.user_name, profile_path(post.user.user_name)
+            =post.caption
     .post-bottom
       = render 'posts/likes', post: post
       .caption

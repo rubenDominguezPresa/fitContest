@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'relationships/unfollow_user'
   
-  get 'browse', to: 'posts#browse', as: :browse_posts
+  get 'challenges', to: 'challenges#index', as: :index_challenges
 
   post ':user_name/follow_user', to: 'relationships#follow_user', as: :follow_user
   post ':user_name/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
@@ -22,7 +22,15 @@ Rails.application.routes.draw do
   get ':user_name/edit', to: 'profiles#edit', as: :edit_profile
   patch ':user_name/edit', to: 'profiles#update', as: :update_profile
 
+
   resources :posts do
+    resources :comments
+    member do
+      get 'like'
+    end
+  end
+
+  resources :challenges do
     resources :comments
     member do
       get 'like'

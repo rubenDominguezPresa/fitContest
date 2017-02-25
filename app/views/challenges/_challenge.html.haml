@@ -1,0 +1,11 @@
+.container.flex-row.row
+  .image.center
+    .container.flex-row.row
+      .image.center
+        .container.flex-row.row
+          .col-xs-5.col-sm-3.col-lg-4
+            =link_to (image_tag challenge.image.url(:medium), class:'img-responsive'),
+                 challenge_path(challenge)
+        .user-name
+          =link_to challenge.name, challenge_path(challenge)
+  

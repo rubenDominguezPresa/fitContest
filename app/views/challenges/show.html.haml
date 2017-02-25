@@ -1,0 +1,11 @@
+.text-center.posts-wrapper
+  = image_tag(@challenge.image.url(:medium))
+= render 'posts/form', post: @post
+= render 'posts/post', post: @posts
+.text-center.edit-links
+  - if @challenge.user.id == current_user.id
+    = link_to "Cancel", posts_path
+    |
+    = link_to "Edit challenge", edit_post_path(@challenge)
+  - else
+    =link_to "Cancel", root_path

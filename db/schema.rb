@@ -11,22 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218121345) do
+ActiveRecord::Schema.define(version: 20170223205845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "challenges", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.string   "description"
+    t.string   "type"
     t.string   "rules"
+    t.string   "timing"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
+
+  add_index "challenges", ["user_id"], name: "index_challenges_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -74,9 +79,21 @@ ActiveRecord::Schema.define(version: 20170218121345) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "user_id"
+    t.integer  "challenge_id"
   end
 
+  add_index "posts", ["challenge_id"], name: "index_posts_on_challenge_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "registrations", force: :cascade do |t|
+    t.integer  "challenges_id"
+    t.integer  "users_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "registrations", ["challenges_id"], name: "index_registrations_on_challenges_id", using: :btree
+  add_index "registrations", ["users_id"], name: "index_registrations_on_users_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
