@@ -22,7 +22,11 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:success] = "Your post has been created!"
-      redirect_to root_path
+      if @post.challenge==nil
+        redirect_to root_path
+      else
+        redirect_to(:back)
+      end
     else
       flash[:alert] = "Your new post couldn't be created!  Please check the form."
       render :new
@@ -60,11 +64,15 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:image, :caption)
+    params.require(:post).permit(:image, :caption, :challenge_id)
   end
 
   def set_post
     @post = Post.find(params[:id])
+    if params[:challenge_id].exists
+      @post.challenge=Challenge.find(params[:id])
+      params.delete :challenge_id
+    end
   end
 
   def owned_post
@@ -75,9 +83,7 @@ class PostsController < ApplicationController
   end
   
   def browse 
-    puts "holaaaaaaaaaaaaaaaa" 
     @posts = Post.all.order('created_at DESC').page params[:page]
-
   end  
 
 end

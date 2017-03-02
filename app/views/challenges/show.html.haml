@@ -1,11 +1,27 @@
-.text-center.posts-wrapper
+.text-left
   = image_tag(@challenge.image.url(:medium))
+.col-md-6
+  .user-name-and-follow
+    %h3.profile-user-name
+      = @challenge.name
+    %span
+      - if @challenge.user == current_user
+        = link_to 'Edit Profile', edit_challenge_path(@challenge.id),
+                                  class: 'btn edit-button'
+      - else
+        - if current_user_is_following(current_user.id, @challenge.id)
+          = link_to 'Following', unfollow_challenge_path,
+                                   remote: true,
+                                   class: 'btn unfollow-button',
+                                   id: 'unfollow-button',
+                                   method: :post
+        - else
+          = link_to 'Follow', follow_challenge_path,
+                                  remote: true,
+                                  class: 'btn follow-button',
+                                  id: 'follow-button',
+                                  method: :post
+
 = render 'posts/form', post: @post
-= render 'posts/post', post: @posts
-.text-center.edit-links
-  - if @challenge.user.id == current_user.id
-    = link_to "Cancel", posts_path
-    |
-    = link_to "Edit challenge", edit_post_path(@challenge)
-  - else
-    =link_to "Cancel", root_path
+- if @challenge.posts.any?
+  = render 'posts/post', post: @posts

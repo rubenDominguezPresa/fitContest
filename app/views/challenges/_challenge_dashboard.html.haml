@@ -1,8 +1,9 @@
-#posts.posts-wrapper
+#challenges.posts-wrapper
   .container.flex-row.row
     - @challenges.each do |challenge|
       .col-xs-5.col-sm-3.col-lg-4
         = render challenge
-
+= render 'form'
+%button.btn.btn-primary{"data-target" => "#ModalChallenge", "data-toggle" => "modal", "data-whatever" => "NewChallenge", :type => "button"} New Challenge
 #paginator.text-center
   = link_to_next_page @challenges, 'LOAD MORE', remote: true, id: 'load_more'

@@ -16,4 +16,24 @@ class RelationshipsController < ApplicationController
        end
     end
   end
+
+  def follow_challenge
+    puts params
+    @challenge = Challenge.find_by! id: params[:id]
+
+    if current_user.follow @challenge.id
+      respond_to do |format|
+      format.js {render inline: "location.reload();" }
+       end
+    end
+  end
+
+  def unfollow_challenge
+    @Challenge = Challenge.find_by! id: params[:id]
+    if current_user.unfollow @Challenge.id
+      respond_to do |format|
+      format.js {render inline: "location.reload();" }
+       end
+    end
+  end
 end

@@ -5,9 +5,10 @@ class CreateChallenges < ActiveRecord::Migration
       #t.references :registrations, index: true
       t.string :name
       t.string :description
-      t.string :type
+      t.string :category
       t.string :rules
-      t.string :timing
+      t.date :start_date
+      t.date :end_date
       t.timestamps null: false
 
       change_table :posts do |t|

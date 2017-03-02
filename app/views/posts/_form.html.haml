@@ -10,9 +10,12 @@
           .container-fluid
             .form-group.text-center
               %h4 New post:
+            .btn.btn-outline-success
               = f.input :image, label: false, input_html: { onChange: 'loadFile(event)' }
             .form-group.text-center
               = f.input :caption, label: false, placeholder: 'Add your caption'
             .form-group.text-center
+              - if @post.challenge!=nil
+                =f.hidden_field :challenge_id, value: @post.challenge.id
               = f.button :submit, class: 'btn-success btn-block'
-              
+

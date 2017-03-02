@@ -6,7 +6,6 @@ class ChallengesController < ApplicationController
   def index  
     #@posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
     @challenges = Challenge.order('created_at DESC').page params[:page]
-    puts @challenges.last
     @challenge = Challenge.new
   end
 
@@ -14,6 +13,8 @@ class ChallengesController < ApplicationController
     @post = Post.new
     @post.challenge=Challenge.find(params[:id])
     @posts=Post.find_by(challenge: params[:id])
+    @challenge=Challenge.find(params[:id])
+    puts current_user.id
   end
 
   def new
@@ -26,7 +27,7 @@ class ChallengesController < ApplicationController
     puts @challenge
     if @challenge.save
       flash[:success] = "Your challenge has been created!"
-      redirect_to root_path
+      redirect_to(:back)
     else
       flash[:alert] = "Your new challenge couldn't be created!  Please check the form."
       render :new
@@ -37,7 +38,7 @@ class ChallengesController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    if @challenge.update(challenge_params)
       flash[:success] = "Post updated."
       redirect_to root_path
     else
@@ -64,7 +65,7 @@ class ChallengesController < ApplicationController
   private
 
   def challenge_params
-    params.require(:challenge).permit(:image, :name)
+    params.require(:challenge).permit(:image, :name, :category, :timing, :description, :rules)
   end
 
   def set_challenge
@@ -72,7 +73,7 @@ class ChallengesController < ApplicationController
   end
 
   def owned_challenge
-    unless current_user == @challenge.user
+    unless current_user == @user
       flash[:alert] = "That post doesn't belong to you!"
       redirect_to root_path
     end
@@ -82,6 +83,14 @@ class ChallengesController < ApplicationController
     
     @challenges = Post.all.order('created_at DESC').page params[:page]
 
-  end  
+  end
+
+  def follow(challenge_id)  
+    following_relationships.create(following_id: challenge_id)
+  end
+
+  def unfollow(challenge_id)
+    following_relationships.find_by(following_id: challenge_id).destroy
+  end 
 
 end
