@@ -1,0 +1,24 @@
+<div id="Fcalendar">
+	 <script>
+	 	$("#Fcalendar").fullCalendar({
+     header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay,listWeek'
+			},
+	 eventLimit: true,
+	 navLinks: true,
+	 locale: 'es',
+	 
+     left: "prev,next today",
+     center: "title",
+     right: "month,agendaWeek,agendaDay",
+     defaultView: "month",
+     height: 500,
+     slotMinutes: 15,
+      events: <%= @events.to_json.html_safe %>,
+     timeFormat: "h:mm t{ - h:mm t} ",
+     dragOpacity: "0.5"
+  });
+	</script>
+</div>

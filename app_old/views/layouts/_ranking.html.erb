@@ -1,0 +1,19 @@
+<table  id="duel_table" class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Time</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= minimize_profile_avatar_select(user)%> <%= user.user_name %></td>
+        <td><%= user.tracks.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

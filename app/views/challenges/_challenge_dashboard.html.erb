@@ -1,0 +1,9 @@
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+      <% @challenges.each do |challenge| %>
+          <%= render challenge %>
+      <%end%>
+	            </div>
+        </div>
+    </section>

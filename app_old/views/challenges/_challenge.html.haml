@@ -1,0 +1,10 @@
+%div.thumbnail
+  %div.thumbnail-image
+    .image.center
+      =link_to (image_tag challenge.image.url(:medium), class:'img-responsive'),
+                 challenge_path(challenge)
+    %div.caption
+      .user-name
+        =link_to challenge.name, challenge_path(challenge)
+        %p
+          =challenge.description

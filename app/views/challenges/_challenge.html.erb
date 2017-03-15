@@ -1,0 +1,16 @@
+      
+                <div class="portfolio-items">
+                    <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                	<%=link_to (image_tag challenge.image.url(:medium), class:'img-responsive'), challenge_path(challenge) %>
+                                </div>
+                                
+                            </div>
+                            <div class="portfolio-info ">
+                                <%= challenge.name %>
+                                <h2><%= challenge.description%></h2>
+                            </div>
+                        </div>
+                    </div>

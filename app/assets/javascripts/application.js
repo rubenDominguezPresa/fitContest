@@ -11,16 +11,43 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap
 //= require best_in_place
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
+//= require 'jquery.dynatable'
 //= require_tree .
 
 
 
 $(document).ready(function() {
   /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
+  //alert('hola')
+ //jQuery(".best_in_place").best_in_place();
+  
+ $("#ranking").on('ajax:success', function(e, data, status, xhr) {
+    $("#add-ajax").empty();  
+    $("#add-ajax").append(data);
+    $('#duel_table').dynatable({
+      table: {
+        defaultColumnIdStyle: 'underscore'
+      }
+    });
+  });
+
+  $("#posts").on('ajax:success', function(e, data, status, xhr) {
+    $("#add-ajax").empty();  
+    $("#add-ajax").append(data);
+    
+  });
+
+$("#calendar").on('ajax:success', function(e, data, status, xhr) {
+ $("#add-ajax").empty();
+ $("#add-ajax").append(data);
+});
+
 })
+
+

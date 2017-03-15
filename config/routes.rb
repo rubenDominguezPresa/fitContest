@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'relationships/unfollow_user'
   
   get 'challenges', to: 'challenges#index', as: :index_challenges
+  post 'challenges/:id/ranking', to: 'challenges#ranking', as: :challenges_ranking
+  post 'challenges/:id/posts', to: 'challenges#posts', as: :challenges_posts
+  post 'challenges/:id/calendar', to: 'challenges#calendar', as: :challenges_calendar
+
 
   post ':user_name/follow_user', to: 'relationships#follow_user', as: :follow_user
   post ':user_name/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
@@ -25,7 +29,8 @@ Rails.application.routes.draw do
   get ':user_name/edit', to: 'profiles#edit', as: :edit_profile
   patch ':user_name/edit', to: 'profiles#update', as: :update_profile
 
-
+  resources :tracks
+  
   resources :posts do
     resources :comments
     member do

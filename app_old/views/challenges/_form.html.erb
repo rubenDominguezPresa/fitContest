@@ -1,0 +1,68 @@
+<div class="modal fade" id="ModalChallenge" tabindex="-1" role="dialog" aria-labelledby="ModalChallenge" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalChallenge">New challenge</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @challenge, html: { multipart: true } do |f| %>
+          <div class="form-group">
+            <label for="challenge-name" class="form-control-label">Challenge Image:</label>
+            <%= f.input :image, input_html: { onChange: 'loadFile(event)' } %>
+          </div>
+          <div class="form-inline">
+          <div class="form-group">
+            <label for="challenge-name" class="form-control-label">Name:</label>
+            <%= f.text_field :name, class:"form-control", placeholder: "challenge name" %>          
+          </div>
+          <div class="form-group">
+            <label for="challenge-type" class="form-control-label">Type:</label>
+            <%= f.input :category, label: false,:collection => [['Running',1],['Bicicle',2],['Gym rutine/reps',3]] %>
+          </div>
+      </div>
+      <div class="form-inline">
+<div class="container">
+    <div class='col-md-3'>
+        <div class="form-group">
+            <label for="challenge-name" class="form-control-label">Start date:</label>
+            <div class='input-group date' id='datetimepicker6'>
+                <%= f.text_field :start_date, class:"form-control"%>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>  
+    <div class='col-md-3'>
+        <div class="form-group">
+            <label for="challenge-name" class="form-control-label">Start date:</label>
+            <div class='input-group date' id='datetimepicker7'>
+                <%= f.text_field :end_date, class:"form-control"%>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+          <div class="form-group">
+            <label for="challenge-rules" class="form-control-label">Rules:</label>
+            <%= f.text_field :rules, class:"form-control"%>
+          </div>
+          <div class="form-group">
+            <label for="description-text" class="form-control-label">Description:</label>
+            <%= f.text_field :description, class:"form-control"%>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

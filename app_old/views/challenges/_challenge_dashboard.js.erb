@@ -1,0 +1,4 @@
+$('#challenges').append("<%= escape_javascript(render 'challenges')%>");
+$('#paginator').html("<%= escape_javascript(link_to_next_page(@challenges, 'LOAD MORE', remote: true, id: 'load_more'))%>");
+if (!$('#load_more').length) { $('#paginator').remove(); }
+

@@ -69,7 +69,7 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
-    if params[:challenge_id].exists
+    if params[:challenge_id]!=nil
       @post.challenge=Challenge.find(params[:id])
       params.delete :challenge_id
     end

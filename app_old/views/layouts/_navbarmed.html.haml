@@ -1,0 +1,13 @@
+%nav.navbar.navbar-default{role: "navigation"}
+  .navbar-container
+    .navbar-header
+      %span.sr-only Toggle Navigation
+      %span.icon-bar
+      %span.icon-bar
+      .navbar-nav
+    .collapse.navbar-collapse#bs-navbar-collapse-1
+      %ul.nav.navbar-nav
+        %li
+          = link_to "Ranking", challenges_ranking_path(@challenge), id: 'ranking', remote: true, method: :post,  data: {type: :html}
+        %li
+          = link_to "Add Track", "#", id: 'track',"data-target" => "#ModalChallenge",'data-toggle' => "modal", 'data-target' => '#ModalChallenge'

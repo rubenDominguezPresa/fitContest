@@ -11,56 +11,22 @@
  * file per style scope.
  *
  *= require bootstrap-datetimepicker
+ *= require bootstrap
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
 
  @import "bootstrap-sprockets";
- @import "bootstrap";
  @import 'bootstrap-datetimepicker';
+ @import "font-awesome";
 
-html {
-  height: 100%;
+input[type="file"] {
+  display: none;
 }
 
-body {
-  height: 100%;
-  background-color: #fafafa;
-  font-family: proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}
-
-.alert {
-  margin-bottom: 0px;
-}
-
-/* ## NAVBAR CUSTOMISATIONS ## */
-
-.navbar {
-  margin-bottom: 0px;
-}
-
-.navbar-brand {
-  a {
-    color: #125688;
-  }
-}
-
-.navbar-default {
-  background-color: #fff;
-  .navbar-nav li a {
-    color: #125688;
-  }
-}
-
-.navbar-container {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-/* ## POST CUSTOMISATIONS ## */
-
-.posts-wrapper {
-  padding-top: 65px;
+ .posts-wrapper {
+  padding-top: 5px;
   margin: 0 auto;
   max-width: 642px;
   width: 100%;
@@ -93,9 +59,8 @@ body {
       float: right;
     }
   }
-  .image {
-    border-bottom: 1px solid #eeefef;
-    border-top: 1px solid #eeefef;
+   .image {
+   
   }
 }
 
@@ -105,6 +70,9 @@ body {
   }
   .caption {
     margin-bottom: 7px;
+    text-align: -webkit-left;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .user-name {
     font-weight: 500;
@@ -341,4 +309,31 @@ body {
     background-color: #47821F;
     color: white;
   }
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
 }

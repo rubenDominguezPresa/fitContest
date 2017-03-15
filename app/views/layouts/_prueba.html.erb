@@ -1,0 +1,72 @@
+<header id="header">      
+        <div class="container">
+            <div class="row">
+             </div>
+        </div>
+        <div class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/">
+                       <%= link_to "FitContest", root_path %>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <% if user_signed_in? %>
+                        <li class="active"><a href="/">Home</a></li>
+                        <!--<li class="dropdown"><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="aboutus.html">About</a></li>
+                                <li><a href="aboutus2.html">About 2</a></li>
+                                <li><a href="service.html">Services</a></li>
+                                <li><a href="pricing.html">Pricing</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="contact2.html">Contact us 2</a></li>
+                                <li><a href="404.html">404 error</a></li>
+                                <li><a href="coming-soon.html">Coming Soon</a></li>
+                            </ul>
+                        </li>-->                    
+                        <li class="dropdown"><a href="<%=current_user.user_name%>">Mi perfil<i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="<%=current_user.user_name%>/edit">Editar</a></li>
+                                <li><a href="blogtwo.html">tracks</a></li>
+                                <li><a href="blogone.html">calendario</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="<%=index_challenges_path%>">Retos<i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="portfolio.html">Mis retos</a></li>
+                                <li><a href="portfoliofour.html">Todos</a></li>
+                                <li><a href="<%=new_challenge_path%>">Crear Reto</a></li>
+                            </ul>
+                        </li>                         
+                        <!--<li><%= link_to "Retos", index_challenges_path%></li>-->
+                        <li><%= link_to "Logout", destroy_user_session_path, method: :delete%></li>                   
+                    </ul>
+                </div>
+                 <% if user_signed_in? %>
+                   <%= render 'notifications/notification_dropdown' %>
+                <div class="search">
+                    <form role="form">
+                        <i class="fa fa-search"></i>
+                        <div class="field-toggle">
+                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
+                <% end %>
+                <% else %>
+                  <li> <%= link_to "Login", new_user_session_path%></li>
+                  <li><%= link_to "Register", new_user_registration_path%></li>
+                <% end %>
+
+            </div>
+        </div>
+    </header>

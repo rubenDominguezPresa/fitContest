@@ -1,0 +1,9 @@
+<ul class="portfolio-filter text-center">
+                    <li><%= link_to "Posts", challenges_posts_path(@challenge), class: "btn btn-default active",  id: 'posts', remote: true, method: :post,  data: {type: :html}%></li>
+                    <li><%= link_to "Ranking", challenges_ranking_path(@challenge), id: 'ranking', remote: true, method: :post,  data: {type: :html}%></li>
+                    <li><%= link_to "Calendario", challenges_calendar_path(@challenge), id: 'calendar', remote: true, method: :post,  data: {type: :html}%></li>
+                    <!-- <li><a class="btn btn-default" href="#" data-filter=".folio">Folio</a></li>
+                   <li><a class="btn btn-default" href="#" data-filter=".logos">Logos</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".mobile">Mobile</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".mockup">Mockup</a></li> -->
+                </ul>

@@ -1,7 +1,8 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts]
   before_action :owned_challenge, only: [:edit, :update, :destroy]
+  respond_to :html, :js
 
   def index  
     #@posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
@@ -11,21 +12,46 @@ class ChallengesController < ApplicationController
 
   def show
     @post = Post.new
-    @post.challenge=Challenge.find(params[:id])
-    @posts=Post.find_by(challenge: params[:id])
-    @challenge=Challenge.find(params[:id])
-    puts current_user.id
+    @track = Track.new
+    @post.challenge=@challenge
+    @posts = @challenge.posts.order('created_at DESC').page params[:page]
   end
 
   def new
     @challenge = Challenge.new
   end
 
+  def ranking 
+    puts "ranking"
+    @users = @challenge.followers
+    render partial: 'layouts/ranking'
+  end
+
+  def calendar 
+    puts "calendar"
+    #@task = current_user.tasks
+    @events = []
+    #@task.each do |task|
+    @events << {:id => "1", :title => "prueba running", :start => "2017-03-13",:end => "2017-03-15", :color => 'red'}
+    #end
+    #render :text => events.to_json
+    render partial: 'layouts/calendar', events: @events
+  end
+
+  def posts
+    puts "posts"
+    @post = Post.new
+    @post.challenge=@challenge
+    @posts = @challenge.posts.order('created_at DESC').page params[:page]
+    render partial: 'posts/posts', posts: @posts
+  end
+
   def create
     @challenge = Challenge.new(challenge_params)
     @challenge.user=current_user
-    puts @challenge
+    @challenge.ranking=Ranking.new
     if @challenge.save
+      @challenge.followers.push(current_user)
       flash[:success] = "Your challenge has been created!"
       redirect_to(:back)
     else
@@ -80,9 +106,7 @@ class ChallengesController < ApplicationController
   end
   
   def browse 
-    
     @challenges = Post.all.order('created_at DESC').page params[:page]
-
   end
 
   def follow(challenge_id)  

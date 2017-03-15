@@ -1,0 +1,69 @@
+  <section id="portfolio-information" class="padding-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                  <%= image_tag(@challenge.image.url(:medium), class:"img-responsive")%>
+                  <% if @challenge.user == current_user %>
+      <%=link_to 'Edit Profile', edit_challenge_path(@challenge.id),
+                                class: 'btn btn-common uppercase'%>
+    <% else 
+       if current_user_is_following(current_user.id, @challenge.id)%>
+        <%= link_to 'Following', unfollow_challenge_path,
+                                 remote: true,
+                                 class: 'btn btn-common uppercase',
+                                 id: 'unfollow-button',
+                                 method: :post%>
+      <% else %>
+        <%= link_to 'Follow', follow_challenge_path,
+                                remote: true,
+                                class: 'btn btn-common uppercase',
+                                id: 'follow-button',
+                                method: :post%>
+      <% end %>
+      <% end %>
+              </div>
+              <div class="col-sm-6">
+                  <div class="project-name overflow">
+                      <h2 class="bold">Sailing Vivamus </h2>
+                      <ul class="nav navbar-nav navbar-default">
+                          <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
+                          <li><a href="#"><i class="fa fa-tag"></i>Branding</a></li>
+                      </ul>
+                  </div>
+                  <div class="project-info overflow">
+                      <h3>Project Info</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Suspendisse potenti. Proin quis eros odio, dapibus dictum mauris. Donec nisi libero, adipiscing id pretium eget, consectetur sit amet leo. Nam at eros quis mi egestas fringilla non nec purus.</p>
+                      <!--<ul class="elements">
+                          <li><i class="fa fa-angle-right"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                          <li><i class="fa fa-angle-right"></i> Donec tincidunt felis quis ipsum porttitor, non rutrum lorem rhoncus.</li>
+                          <li><i class="fa fa-angle-right"></i> Nam in quam consectetur nulla placerat dapibus ut ut nunc.</li>
+                      </ul>-->
+                  </div>
+                  <!--<div class="skills overflow">
+                      <h3>Skills:</h3>
+                      <ul class="nav navbar-nav navbar-default">
+                          <li><a href="#"><i class="fa fa-check-square"></i>Design</a></li>
+                          <li><a href="#"><i class="fa fa-check-square"></i>HTML/CSS</a></li>
+                          <li><a href="#"><i class="fa fa-check-square"></i>Javascript</a></li>
+                          <li><a href="#"><i class="fa fa-check-square"></i>Backend</a></li>
+                      </ul>
+                  </div>
+                  <div class="client overflow">
+                      <h3>Client:</h3>
+                      <ul class="nav navbar-nav navbar-default">
+                          <li><a href="#"><i class="fa fa-bolt"></i>Okler Themes</a></li>
+                      </ul>
+                  </div>
+                  <div id="add-ajax" class="live-preview">
+                      
+                  </div>
+              </div>-->
+          </div>
+      </div>
+      <%= render 'layouts/navbarmed' %>
+  <div id="add-ajax" class="live-preview">
+      <%= render 'posts/posts', posts: @posts %>                                      
+  </div>
+  </section>
+  
+

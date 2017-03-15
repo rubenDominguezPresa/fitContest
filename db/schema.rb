@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301024406) do
+ActiveRecord::Schema.define(version: 20170305194430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(version: 20170301024406) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "ranking_id"
   end
 
+  add_index "challenges", ["ranking_id"], name: "index_challenges_on_ranking_id", using: :btree
   add_index "challenges", ["user_id"], name: "index_challenges_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
@@ -89,7 +91,6 @@ ActiveRecord::Schema.define(version: 20170301024406) do
   create_table "rankings", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "challenge_id"
-    t.string   "points"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -120,10 +121,17 @@ ActiveRecord::Schema.define(version: 20170301024406) do
     t.integer  "user_id"
     t.integer  "challenge_id"
     t.string   "tittle"
-    t.string   "info"
+    t.date     "date"
+    t.string   "duration"
+    t.string   "quantity"
     t.string   "category"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "comments"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "tracks", ["challenge_id"], name: "index_tracks_on_challenge_id", using: :btree

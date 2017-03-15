@@ -1,0 +1,4 @@
+$('#follow-button').attr('class', 'btn unfollow-button')
+                   .text('Following')
+                   .attr('href', "/<%= @challenge.id %>/unfollow_challenge")
+                   .attr('id', 'unfollow-button');
