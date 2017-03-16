@@ -25,4 +25,4 @@ gem "twitter-bootstrap-rails"
 gem 'font-awesome-rails', '~> 4.3'
 gem 'frontend-generators'
 gem 'fullcalendar-rails'
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk', '< 2.0'
