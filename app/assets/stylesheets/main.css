@@ -487,6 +487,16 @@ ul.sub-menu {
   outline: none;
   box-shadow: none;
   height: 40px;
+  padding: 6px 10px;
+  margin-top: 10px;
+}
+
+.glyphicon-camera:before {
+    content: "\e046";
+    font-size: x-large;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: crimson;
 }
 
 .form-control:hover, 
