@@ -18,7 +18,7 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="name">Nombre</label>
               <div class="col-md-9">
-                <%= f.text_field :name, class:"form-control", placeholder: "nombre del reto" %>          
+                <%= f.text_field :tittle, class:"form-control", placeholder: "nombre del reto" %>          
               </div>
             </div>
     
@@ -34,37 +34,45 @@
               <label class="col-md-3 control-label" for="tipo">Fecha</label>
               <div class="col-md-9">
                 <div class='input-group date' id='datetimepicker6'>
-                <%= f.text_field :end_date, class:"form-control"%>
+                <%= f.date_field :date, class:"form-control"%>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
             </div>
+            </div>  
+
+
+              <div class="form-group">
               <label class="col-md-3 control-label" for="tipo">Duracion</label>
               <div class="col-md-9">
-                <input type="time" name="time" />
-                <%= f.time_field :distance, label: false %> Hours
+                <%= f.time_field :duration,class:"form-control", label: false %>
+              </div>
             </div>
-            </div>
+
+
+              <div class="form-group">
               <label class="col-md-3 control-label" for="tipo">Distancia</label>
               <div class="col-md-9">
-                <%= f.number_field :quantity, label: false %> KM
+                <%= f.number_field :quantity, class:"form-control", label: false %>
+              </div>
             </div>
-            </div>
+
+            <div class="form-group">             
               <label class="col-md-3 control-label" for="tipo">Repeticiones</label>
               <div class="col-md-9">
-                <%= f.number_field :quantity, label: false %>
+                <%= f.number_field :quantity, class:"form-control", label: false %>
             </div>
-            </div>
+          </div>
 
             <!-- Message body -->
             <div class="form-group">
               <label class="col-md-3 control-label" for="message">Comentarios</label>
               <div class="col-md-9">
-                <%= f.text_area :description, class:"form-control", rows: '5'%>
+                <%= f.text_area :comments, class:"form-control", rows: '5'%>
               </div>
             </div>
-
+            <%= f.hidden_field_tag :challenge_id, @challenge.id %>
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-right">

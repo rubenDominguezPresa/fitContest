@@ -48,6 +48,11 @@ $("#calendar").on('ajax:success', function(e, data, status, xhr) {
  $("#add-ajax").append(data);
 });
 
+$("#track").on('ajax:success', function(e, data, status, xhr) {
+ $("#add-ajax").empty();
+ $("#add-ajax").append(data);
+});
+
 })
 
 

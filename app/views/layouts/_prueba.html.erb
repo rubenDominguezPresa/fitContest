@@ -33,9 +33,9 @@
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
                             </ul>
                         </li>-->                    
-                        <li class="dropdown"><a href="<%=current_user.user_name%>">Mi perfil<i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="<%= profile_path(current_user.user_name)%>">Mi perfil<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="<%=current_user.user_name%>/edit">Editar</a></li>
+                                <li><a href="<%=edit_profile_path(current_user.user_name)%>">Editar</a></li>
                                 <li><a href="blogtwo.html">tracks</a></li>
                                 <li><a href="blogone.html">calendario</a></li>
                             </ul>

@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track]
   before_action :owned_challenge, only: [:edit, :update, :destroy]
   respond_to :html, :js
 
@@ -25,6 +25,14 @@ class ChallengesController < ApplicationController
     puts "ranking"
     @users = @challenge.followers
     render partial: 'layouts/ranking'
+  end
+
+  def track 
+    puts "track"
+    @track = Track.new
+    @track.challenge=@challenge
+    @track.user=current_user
+    render partial: 'tracks/form', challenge: @challenge
   end
 
   def calendar 

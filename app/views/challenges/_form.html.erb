@@ -1,4 +1,7 @@
-
+<!--<div class="posts-wrapper">
+  <div class="post">
+    <div class="post-body">
+      <div class="image-wrap">
         <%= simple_form_for @challenge, html: { multipart: true } do |f| %>
           <div class="form-group">
             <label for="challenge-name" class="form-control-label">Challenge Image:</label>
@@ -54,3 +57,91 @@
         <%= f.submit "Save", class: "btn btn-primary" %>
       </div>
       <% end %>
+    </div>
+  </div>
+</div>
+</div>-->
+
+<!-- Submitted March 7 @ 11:05pm  -->
+
+    <div class="container">
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well well-sm">
+          <%= simple_form_for @challenge, html: { multipart: true } do |f| %>
+          <%= form_image_select(@challenge) %>
+
+   <label for="file-input">
+     <span class="glyphicon glyphicon-upload"></span>
+   </label>Seleccion imagen del reto
+
+   <%= f.file_field :image, id:"file-input", onChange: 'loadFile(event)' %>
+          <form class="form-horizontal" action="" method="post">
+          <fieldset>
+            <legend class="text-center">Nuevo reto</legend>
+    
+            <!-- Name input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="name">Nombre</label>
+              <div class="col-md-9">
+                <%= f.text_field :name, class:"form-control", placeholder: "nombre del reto" %>          
+              </div>
+            </div>
+    
+            <!-- Email input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="tipo">Tipo de reto</label>
+              <div class="col-md-9">
+                <%= f.input :category, label: false,:collection => [['Running',1],['Bicicle',2],['Gym rutine/reps',3]] %>
+              </div>
+            </div>
+
+            <div class="form-group form-inline">
+              <label class="col-md-3 control-label" for="tipo">Fecha de inicio</label>
+              <div class="col-md-9">
+                <div class='input-group date' id='datetimepicker6'>
+                <%= f.text_field :end_date, class:"form-control"%>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+              </div>
+              <label class="col-md-3 control-label" for="tipo">Fecha de fin</label>
+              <div class="col-md-9">
+                <div class='input-group date' id='datetimepicker7'>
+                <%= f.text_field :start_date, class:"form-control"%>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+              </div>
+            </div>
+
+            <!-- Message body -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Descripcion</label>
+              <div class="col-md-9">
+                <%= f.text_area :description, class:"form-control", rows: '5'%>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Reglas</label>
+              <div class="col-md-9">
+                <%= f.text_area :rules, class:"form-control", rows: '5'%>
+              </div>
+            </div>
+
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div><!--./row --><!--./container -->

@@ -18,7 +18,7 @@ class TracksController < ApplicationController
   end
 
   def new
-    @challenge = Challenge.new
+    @track = Track.new
   end
 
   def ranking 
@@ -30,12 +30,18 @@ class TracksController < ApplicationController
     @track = Track.new(track_params)
     @track.user=current_user
 
-    if (params[:id_challenge]!=nil)
-      @track.challenge=Challenge.find(params[:id_challenge])
+    if (params[:challenge_id]!=nil)
+      @track.challenge=Challenge.find(params[:challenge_id])
     end
     
     if @track.save
-      flash[:success] = "Your challenge has been created!"
+      post = Post.new
+      post.image = @track.image
+      post.caption = @track.comments
+      post.challenge =@track.challenge
+      post.user = current_user
+      post.save
+      flash[:success] = "Your track has been created!"
       redirect_to(:back)
     else
       flash[:alert] = "Your new challenge couldn't be created!  Please check the form."
@@ -74,7 +80,7 @@ class TracksController < ApplicationController
   private
 
   def track_params
-    params.require(:track).permit(:image, :tittle, :category, :date, :comments, :rules)
+    params.require(:track).permit(:image, :tittle, :category, :date, :comments, :duration, :quantity)
   end
 
   def set_track
