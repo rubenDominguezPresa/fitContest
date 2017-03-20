@@ -96,11 +96,13 @@
               </div>-->
           </div>
       </div>
+      <%= render 'navbarmed' %>
         <div id="add-ajax" class="live-preview">
       <% @posts.each do |post| %>
         <%= render 'posts/post', post: post %> 
          <% end %>                                      
   </div>
+</div>
   </section>
   
 

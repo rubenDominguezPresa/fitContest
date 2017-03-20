@@ -1,5 +1,7 @@
 <div id="Fcalendar">
 	 <script>
+
+
 	 	$("#Fcalendar").fullCalendar({
      header: {
 				left: 'prev,next today',
@@ -17,6 +19,16 @@
      height: 500,
      slotMinutes: 15,
       events: <%= @events.to_json.html_safe %>,
+      eventRender: function(event, element, view) {
+
+        if(event.icon){
+            if(event.allDay){
+                $(element).find('span:first').prepend('<img src="'+event.icon+'" width="20" height="20" class="img-circle"/>');
+            }else{
+                $(element).find('.fc-time').prepend('<img src="'+event.icon+'" width="20" height="20" class="img-circle"/>');
+            }
+        }
+    },
      timeFormat: "h:mm t{ - h:mm t} ",
      dragOpacity: "0.5"
   });

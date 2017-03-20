@@ -1,18 +1,20 @@
 <table  id="duel_table" class="table table-bordered">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Time</th>
-      <th>Count</th>
+      <th>Nombre</th>
+      <th>Tiempo total</th>
+      <th>Distancia</th>
+      <th>Repeticiones</th>
     </tr>
   </thead>
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
+    <% @result.each do |user|%>
       <tr>
-        <td><%= minimize_profile_avatar_select(user)%> <%= user.user_name %></td>
-        <td><%= user.tracks.count %></td>
+        <td><%= minimize_profile_avatar_select(user[:user])%> <%= user[:user].user_name %></td>
+        <td><%= user[:duration] %></td>
+        <td><%= user[:distance] %></td>
       </tr>
     <% end %>
   </tbody>

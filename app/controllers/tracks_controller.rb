@@ -37,7 +37,7 @@ class TracksController < ApplicationController
     if @track.save
       post = Post.new
       post.image = @track.image
-      post.caption = @track.comments
+      post.caption = "Ha registrado una nueva sesion de entrenamiento /n /n /n" + @track.comments
       post.challenge =@track.challenge
       post.user = current_user
       post.save

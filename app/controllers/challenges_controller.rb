@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track, :calendar]
   before_action :owned_challenge, only: [:edit, :update, :destroy]
   respond_to :html, :js
 
@@ -24,6 +24,17 @@ class ChallengesController < ApplicationController
   def ranking 
     puts "ranking"
     @users = @challenge.followers
+    tracks = @challenge.tracks
+    duration=0
+    @result=[]
+    @users.each do |user|
+      user.tracks.each do |track|
+        if tracks.include?(track)
+          duration=duration+track.duration.to_i
+        end
+      end
+      @result<<{:user=>user, :duration=>duration}
+    end
     render partial: 'layouts/ranking'
   end
 
@@ -37,10 +48,16 @@ class ChallengesController < ApplicationController
 
   def calendar 
     puts "calendar"
-    #@task = current_user.tasks
+    tracks = @challenge.tracks
     @events = []
+    tracks.each do |track|
+      @events << {id: track.id, :title => track.user.user_name+" registro: "+track.duration+" hr", :start => track.date, :icon => track.user.avatar.url,:textColor => '#757770', :backgroundColor =>'#e8e8e8'}
+    end
+      
+    #@task = current_user.tasks
+    
     #@task.each do |task|
-    @events << {:id => "1", :title => "prueba running", :start => "2017-03-13",:end => "2017-03-15", :color => 'red'}
+    #@events << {:id => "1", :title => "prueba running", :start => "2017-03-13",:end => "2017-03-15", :color => 'red'}
     #end
     #render :text => events.to_json
     render partial: 'layouts/calendar', events: @events
