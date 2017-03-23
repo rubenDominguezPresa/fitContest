@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305194430) do
+ActiveRecord::Schema.define(version: 20170323192523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20170305194430) do
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+
   create_table "follows", force: :cascade do |t|
     t.integer  "following_id", null: false
     t.integer  "follower_id",  null: false
@@ -57,6 +67,17 @@ ActiveRecord::Schema.define(version: 20170305194430) do
   add_index "follows", ["follower_id"], name: "index_follows_on_follower_id", using: :btree
   add_index "follows", ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true, using: :btree
   add_index "follows", ["following_id"], name: "index_follows_on_following_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -108,6 +129,17 @@ ActiveRecord::Schema.define(version: 20170305194430) do
   add_index "registrations", ["challenges_id"], name: "index_registrations_on_challenges_id", using: :btree
   add_index "registrations", ["users_id"], name: "index_registrations_on_users_id", using: :btree
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "challenge_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["challenge_id"], name: "index_relationships_on_challenge_id", using: :btree
+  add_index "relationships", ["user_id", "challenge_id"], name: "index_relationships_on_user_id_and_challenge_id", unique: true, using: :btree
+  add_index "relationships", ["user_id"], name: "index_relationships_on_user_id", using: :btree
+
   create_table "scores", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "points"
@@ -136,6 +168,16 @@ ActiveRecord::Schema.define(version: 20170305194430) do
 
   add_index "tracks", ["challenge_id"], name: "index_tracks_on_challenge_id", using: :btree
   add_index "tracks", ["user_id"], name: "index_tracks_on_user_id", using: :btree
+
+  create_table "user_groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
+  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -179,6 +221,8 @@ ActiveRecord::Schema.define(version: 20170305194430) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "notifications", "posts"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "notified_by_id"

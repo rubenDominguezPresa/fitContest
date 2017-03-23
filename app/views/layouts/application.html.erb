@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>FitContest</title>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+    <%= csrf_meta_tags %>
+  </head>
+</html>
+<body>
+  <body></body>
+  <%= render 'layouts/prueba' %>
+  <% flash.each do |name, msg| %>
+    <div class="container"></div>
+    <%= content_tag :div, msg, class: [:alert, alert_for(name)] %>
+  <% end %>
+  <%= yield %>
+  <audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
+</body>

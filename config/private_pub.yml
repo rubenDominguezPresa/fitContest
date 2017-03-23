@@ -1,0 +1,10 @@
+development:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+test:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+production:
+  server: "https://fitcontestfayeserver.herokuapp.com/"
+  secret_token: "ff2d490f67cd550718519c608f09702b3f90252c07e35c65de88dab3ba19d7c4"
+  signature_expiration: 3600 # one hour

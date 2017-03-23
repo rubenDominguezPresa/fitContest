@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     #@posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
     @posts = current_user.posts.order('created_at DESC').page params[:page]
     @post = current_user.posts.build
+    @users = User.all
   end
 
   def show

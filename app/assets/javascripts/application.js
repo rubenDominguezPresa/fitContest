@@ -16,6 +16,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require moment
+//= require chat
+//= require private_pub
 //= require bootstrap-datetimepicker
 //= require 'jquery.dynatable'
 //= require_tree .

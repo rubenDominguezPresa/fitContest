@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow'
   has_many :following, through: :following_relationships, source: :following
+
+  has_many :conversations, :foreign_key => :sender_id
   
   def follow(user_id)  
     following_relationships.create(following_id: user_id)
