@@ -5,8 +5,9 @@ class CreateTracks < ActiveRecord::Migration
       t.references :challenge, index: true
       t.string :tittle
       t.date :date
-      t.string :duration
-      t.string :quantity
+      t.time :duration
+      t.float :distance
+      t.integer :quantity
       t.string :category
       t.string :comments
 

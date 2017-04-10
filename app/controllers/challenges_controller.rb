@@ -1,8 +1,12 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track, :calendar]
-  before_action :owned_challenge, only: [:edit, :update, :destroy]
+  before_action :owned_challenge, only: [:edit ,:update, :destroy]
   respond_to :html, :js
+
+  def edit
+    
+  end
 
   def index  
     #@posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
@@ -14,6 +18,7 @@ class ChallengesController < ApplicationController
     @post = Post.new
     @track = Track.new
     @post.challenge=@challenge
+    @creator = User.find(@challenge.creator)
     @posts = @challenge.posts.order('created_at DESC').page params[:page]
   end
 
@@ -23,17 +28,31 @@ class ChallengesController < ApplicationController
 
   def ranking 
     puts "ranking"
-    @users = @challenge.followers
+    @users = @challenge.users
     tracks = @challenge.tracks
     duration=0
+    distance=0
+    quantity=0
     @result=[]
     @users.each do |user|
       user.tracks.each do |track|
         if tracks.include?(track)
-          duration=duration+track.duration.to_i
+          if duration=0 
+            duration=track.duration
+          else
+            duration= duration.to_time + (track.duration.to_time.hour).hour
+            duration= duration.to_time + (track.duration.to_time.min).minutes
+            duration= duration.to_time + (track.duration.to_time.sec).seconds
+          end 
+          if (track.distance !=nil)
+            distance=distance+track.distance
+          end
+          if (track.quantity !=nil)
+            quantity=quantity+track.quantity
+          end
         end
       end
-      @result<<{:user=>user, :duration=>duration}
+      @result<<{:user=>user, :duration=>duration.strftime("%H:%M:%S"), :distance=>distance, :quantity=>quantity }
     end
     render partial: 'layouts/ranking'
   end
@@ -51,7 +70,7 @@ class ChallengesController < ApplicationController
     tracks = @challenge.tracks
     @events = []
     tracks.each do |track|
-      @events << {id: track.id, :title => track.user.user_name+" registro: "+track.duration+" hr", :start => track.date, :icon => track.user.avatar.url,:textColor => '#757770', :backgroundColor =>'#e8e8e8'}
+      @events << {id: track.id, :title => track.user.user_name+" registro: "+track.duration.strftime("%H:%M:%S")+" hr", :start => track.date, :icon => track.user.avatar.url,:textColor => '#757770', :backgroundColor =>'#e8e8e8'}
     end
       
     #@task = current_user.tasks
@@ -73,25 +92,27 @@ class ChallengesController < ApplicationController
 
   def create
     @challenge = Challenge.new(challenge_params)
-    @challenge.user=current_user
+    #@challenge.start_date=params[:start_date].to_date
+    #@challenge.end_date=params[:end_date].to_date
     @challenge.ranking=Ranking.new
+    @challenge.users.push(current_user)
+    @challenge.creator=current_user.id
     if @challenge.save
-      @challenge.followers.push(current_user)
       flash[:success] = "Your challenge has been created!"
-      redirect_to(:back)
+      redirect_to challenges_path
     else
       flash[:alert] = "Your new challenge couldn't be created!  Please check the form."
       render :new
     end
   end
 
-  def edit
-  end
-
   def update
+    
     if @challenge.update(challenge_params)
-      flash[:success] = "Post updated."
-      redirect_to root_path
+      #@challenge.start_date=params[:start_date].to_date
+      #@challenge.end_date=params[:end_date].to_date
+      flash[:success] = "Reto actualizado."
+      redirect_to challenges_path
     else
       flash[:alert] = "Update failed.  Please check the form."
       render :edit
@@ -100,7 +121,7 @@ class ChallengesController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:success] = "Your post has been deleted."
+    flash[:success] = "Your challenge has been deleted."
     redirect_to root_path
   end
 
@@ -116,7 +137,7 @@ class ChallengesController < ApplicationController
   private
 
   def challenge_params
-    params.require(:challenge).permit(:image, :name, :category, :timing, :description, :rules)
+    params.require(:challenge).permit(:image, :name, :category, :timing, :description, :rules, :start_date, :end_date)
   end
 
   def set_challenge
@@ -124,7 +145,7 @@ class ChallengesController < ApplicationController
   end
 
   def owned_challenge
-    unless current_user == @user
+    unless current_user.id == @challenge.creator
       flash[:alert] = "That post doesn't belong to you!"
       redirect_to root_path
     end
@@ -135,11 +156,15 @@ class ChallengesController < ApplicationController
   end
 
   def follow(challenge_id)  
-    following_relationships.create(following_id: challenge_id)
+    #.create(following_id: challenge_id)
+    @challenge.users.push=current_user
+    current_user.challenges.push=@challenge
+
   end
 
   def unfollow(challenge_id)
-    following_relationships.find_by(following_id: challenge_id).destroy
+    @challenge.users.delete=current_user
+    current_user.challenges.delete=@challenge
   end 
 
 end

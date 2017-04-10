@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :challenges, through: :registrations
+  has_and_belongs_to_many :challenges, dependent: :destroy
 
   has_attached_file :avatar, styles: { medium: '152x152#' }
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
@@ -33,4 +33,16 @@ class User < ActiveRecord::Base
     following_relationships.find_by(following_id: user_id).destroy
   end
 
+  def follow_challenge(challenge_id)  
+    following_relationships.create(following_id: user_id)
+  end
+
+  def unfollow_challenge(challenge_id)
+    following_relationships.find_by(following_id: user_id).destroy
+  end
+
+  def self.search(search)
+    where("user_name LIKE ?", "%#{search}%") 
+    #where("content LIKE ?", "%#{search}%")
+  end
 end

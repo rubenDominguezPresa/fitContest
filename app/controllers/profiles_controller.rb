@@ -21,6 +21,33 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def track 
+    puts "track"
+    @track = Track.new
+    @track.user=@user
+    render partial: 'tracks/form', challenge: @challenge
+  end
+
+  def calendar 
+    puts "calendar"
+    tracks = @user.tracks
+    @events = []
+    tracks.each do |track|
+      @events << {id: track.id, :title => track.user.user_name+" registro: "+track.duration+" hr", :start => track.date, :icon => track.user.avatar.url,:textColor => '#757770', :backgroundColor =>'#e8e8e8'}
+    end
+      
+    #@task = current_user.tasks
+    
+    #@task.each do |task|
+    #@events << {:id => "1", :title => "prueba running", :start => "2017-03-13",:end => "2017-03-15", :color => 'red'}
+    #end
+    #render :text => events.to_json
+    render partial: 'layouts/calendar', events: @events
+  end
+
+  def sessions
+    @posts=@user.tracks
+  end
   private
 
   def profile_params

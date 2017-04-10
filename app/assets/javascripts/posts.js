@@ -24,11 +24,8 @@ var loadFile = function(event) {
 };
 
 $(function () {
-        $('#datetimepicker6').datetimepicker({format: 'DD/MM/YYYY'});
-        $('#datetimepicker7').datetimepicker({
-            format: 'DD/MM/YYYY',
-            useCurrent: false //Important! See issue #1075
-        });
+        $('#datetimepicker6').datetimepicker({format: 'DD-MM-YYYY'});
+        $('#datetimepicker7').datetimepicker({format: 'DD-MM-YYYY'});
         $("#datetimepicker6").on("dp.change", function (e) {
             $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
         });

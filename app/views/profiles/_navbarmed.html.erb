@@ -1,7 +1,10 @@
 <ul class="portfolio-filter text-center">
-                    
-                    <li><a class="btn btn-default" href="#" data-filter=".folio">Folio</a></li>
+                    <li><%= link_to "Posts", profile_posts_path(@user), class: "btn btn-default active",  id: 'posts', remote: true, method: :post,  data: {type: :html}%></li>
+                    <li><%= link_to "Añadir sesion", profile_track_path(@user), id: 'track', remote: true, method: :post,  data: {type: :html}%></li>
+                    <!--<li><%= link_to "Sesiones", profile_sessions_path(@user), id: 'sessions', remote: true, method: :post,  data: {type: :html}%></li>-->
+                    <li><%= link_to "Calendario", profile_calendar_path(@user), id: 'calendar', remote: true, method: :post,  data: {type: :html}%></li>
+                    <!-- <li><a class="btn btn-default" href="#" data-filter=".folio">Folio</a></li>
                    <li><a class="btn btn-default" href="#" data-filter=".logos">Logos</a></li>
                     <li><a class="btn btn-default" href="#" data-filter=".mobile">Mobile</a></li>
-                    <li><a class="btn btn-default" href="#" data-filter=".mockup">Mockup</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".mockup">Mockup</a></li> -->
                 </ul>

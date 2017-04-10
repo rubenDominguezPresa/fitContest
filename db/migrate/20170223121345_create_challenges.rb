@@ -1,12 +1,13 @@
 class CreateChallenges < ActiveRecord::Migration
   def change
     create_table :challenges do |t|
-      t.references :user, index: true
+      #t.references :user, index: true
       #t.references :registrations, index: true
       t.string :name
       t.string :description
       t.string :category
       t.string :rules
+      t.integer :creator
       t.date :start_date
       t.date :end_date
       t.timestamps null: false

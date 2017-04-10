@@ -1,0 +1,29 @@
+    <section id="portfolio">
+    	
+        <div class="container">
+            <div class="row">
+      <% @results.each do |result| %>
+          
+
+		<div class="portfolio-items">
+                    <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                	<% if result.is_a?(Challenge)%>
+                                	<%= render 'search_challenge_format', result: result %>
+									<%else%>
+									<%= render 'search_user_format', result: result %>
+                                	<%end%>
+                                </div>
+                                
+                            </div>
+                         
+                        </div>
+                    </div>
+
+
+      <%end%>
+	            </div>
+        </div>
+    </section>

@@ -3,18 +3,21 @@
           <div class="row">
               <div class="col-sm-6">
                   <%= image_tag(@challenge.image.url(:medium), class:"img-responsive")%>
-                  <% if @challenge.user == current_user %>
-      <%=link_to 'Edit Profile', edit_challenge_path(@challenge.id),
-                                class: 'btn btn-common uppercase'%>
+                  <% if @creator == current_user %>
+      <%=link_to 'Editar reto', edit_challenge_path(@challenge.id),
+                                remote: false,
+                                id: 'edit',
+                                class: 'btn btn-common uppercase',
+                                  method: :get%>
     <% else 
        if current_user_is_following(current_user.id, @challenge.id)%>
-        <%= link_to 'Following', unfollow_challenge_path,
+        <%= link_to 'Miembro', unfollow_challenge_path,
                                  remote: true,
                                  class: 'btn btn-common uppercase',
                                  id: 'unfollow-button',
                                  method: :post%>
       <% else %>
-        <%= link_to 'Follow', follow_challenge_path,
+        <%= link_to 'Seguir', follow_challenge_path,
                                 remote: true,
                                 class: 'btn btn-common uppercase',
                                 id: 'follow-button',
@@ -24,15 +27,17 @@
               </div>
               <div class="col-sm-6">
                   <div class="project-name overflow">
-                      <h2 class="bold">Sailing Vivamus </h2>
+                      <h2 class="bold"><%=@challenge.name%></h2>
                       <ul class="nav navbar-nav navbar-default">
-                          <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
-                          <li><a href="#"><i class="fa fa-tag"></i>Branding</a></li>
+                          <li><i class="fa fa-clock-o"></i>  Fecha de inicio: <%=@challenge.start_date%> Fecha de fin: <%=@challenge.end_date%></a>
                       </ul>
                   </div>
                   <div class="project-info overflow">
-                      <h3>Project Info</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Suspendisse potenti. Proin quis eros odio, dapibus dictum mauris. Donec nisi libero, adipiscing id pretium eget, consectetur sit amet leo. Nam at eros quis mi egestas fringilla non nec purus.</p>
+                      <h3>Descripcion</h3>
+                      <p><%=@challenge.description%></p>
+                      <h3>Reglas</h3>
+                      <p><%=@challenge.rules%></p>
+
                       <!--<ul class="elements">
                           <li><i class="fa fa-angle-right"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
                           <li><i class="fa fa-angle-right"></i> Donec tincidunt felis quis ipsum porttitor, non rutrum lorem rhoncus.</li>

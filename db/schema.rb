@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323192523) do
+ActiveRecord::Schema.define(version: 20170330205845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "challenges", force: :cascade do |t|
-    t.integer  "user_id"
     t.string   "name"
     t.string   "description"
     t.string   "category"
     t.string   "rules"
+    t.integer  "creator"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",         null: false
@@ -34,7 +34,14 @@ ActiveRecord::Schema.define(version: 20170323192523) do
   end
 
   add_index "challenges", ["ranking_id"], name: "index_challenges_on_ranking_id", using: :btree
-  add_index "challenges", ["user_id"], name: "index_challenges_on_user_id", using: :btree
+
+  create_table "challenges_users", id: false, force: :cascade do |t|
+    t.integer "challenge_id"
+    t.integer "user_id"
+  end
+
+  add_index "challenges_users", ["challenge_id"], name: "index_challenges_users_on_challenge_id", using: :btree
+  add_index "challenges_users", ["user_id"], name: "index_challenges_users_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -129,17 +136,6 @@ ActiveRecord::Schema.define(version: 20170323192523) do
   add_index "registrations", ["challenges_id"], name: "index_registrations_on_challenges_id", using: :btree
   add_index "registrations", ["users_id"], name: "index_registrations_on_users_id", using: :btree
 
-  create_table "relationships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "challenge_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "relationships", ["challenge_id"], name: "index_relationships_on_challenge_id", using: :btree
-  add_index "relationships", ["user_id", "challenge_id"], name: "index_relationships_on_user_id_and_challenge_id", unique: true, using: :btree
-  add_index "relationships", ["user_id"], name: "index_relationships_on_user_id", using: :btree
-
   create_table "scores", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "points"
@@ -154,8 +150,9 @@ ActiveRecord::Schema.define(version: 20170323192523) do
     t.integer  "challenge_id"
     t.string   "tittle"
     t.date     "date"
-    t.string   "duration"
-    t.string   "quantity"
+    t.time     "duration"
+    t.float    "distance"
+    t.integer  "quantity"
     t.string   "category"
     t.string   "comments"
     t.datetime "created_at",         null: false
@@ -168,16 +165,6 @@ ActiveRecord::Schema.define(version: 20170323192523) do
 
   add_index "tracks", ["challenge_id"], name: "index_tracks_on_challenge_id", using: :btree
   add_index "tracks", ["user_id"], name: "index_tracks_on_user_id", using: :btree
-
-  create_table "user_groups", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
-  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

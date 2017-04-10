@@ -36,14 +36,14 @@
                         <li class="dropdown"><a href="<%= profile_path(current_user.user_name)%>">Mi perfil<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="<%=edit_profile_path(current_user.user_name)%>">Editar</a></li>
-                                <li><a href="blogtwo.html">tracks</a></li>
-                                <li><a href="blogone.html">calendario</a></li>
+                                <!--<li><a href="blogtwo.html">tracks</a></li>
+                                <li><a href="blogone.html">calendario</a></li>-->
                             </ul>
                         </li>
                         <li class="dropdown"><a href="<%=index_challenges_path%>">Retos<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="portfolio.html">Mis retos</a></li>
-                                <li><a href="portfoliofour.html">Todos</a></li>
+                                <!--<li><a href="portfolio.html">Mis retos</a></li>-->
+                                <li><a href="<%=index_challenges_path%>">Todos</a></li>
                                 <li><a href="<%=new_challenge_path%>">Crear Reto</a></li>
                             </ul>
                         </li>                         
@@ -54,12 +54,15 @@
                  <% if user_signed_in? %>
                    <%= render 'notifications/notification_dropdown' %>
                 <div class="search">
-                    <form role="form">
+                        
+                    <%= simple_form_for :search,  url: search_path , method: 'post' do |f| %>
+
+                    
                         <i class="fa fa-search"></i>
                         <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
+                            <%= f.text_field :text, class:"search-form", autocomplete: "off", placeholder: "buscar" %>      
                         </div>
-                    </form>
+                    <% end %>
                 </div>
                 <% end %>
                 <% else %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  post 'search', to: 'search#find', as: :search
+
   get 'relationships/follow_user'
 
   get 'relationships/unfollow_user'
@@ -7,8 +10,13 @@ Rails.application.routes.draw do
   post 'challenges/:id/ranking', to: 'challenges#ranking', as: :challenges_ranking
   post 'challenges/:id/posts', to: 'challenges#posts', as: :challenges_posts
   post 'challenges/:id/calendar', to: 'challenges#calendar', as: :challenges_calendar
-
   post 'challenges/:id/track', to: 'challenges#track', as: :challenges_track
+
+
+  post 'profiles/:id/sessions', to: 'profiles#sessions', as: :profile_sessions
+  post 'profiles/:id/posts', to: 'profiles#posts', as: :profile_posts
+  post 'profiles/:id/calendar', to: 'profiles#calendar', as: :profile_calendar
+  post 'profiles/:id/track', to: 'profiles#track', as: :profile_track
 
   post ':user_name/follow_user', to: 'relationships#follow_user', as: :follow_user
   post ':user_name/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
