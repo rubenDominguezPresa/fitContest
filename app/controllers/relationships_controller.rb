@@ -21,7 +21,7 @@ class RelationshipsController < ApplicationController
     puts params
     @challenge = Challenge.find_by! id: params[:id]
 
-    if current_user.follow_challenge @challenge.id && @challenge.follow_user current_user.id
+    if current_user.follow_challenge @challenge.id
       respond_to do |format|
       format.js {render inline: "location.reload();" }
        end
@@ -30,7 +30,7 @@ class RelationshipsController < ApplicationController
 
   def unfollow_challenge
     @Challenge = Challenge.find_by! id: params[:id]
-    if current_user.unfollow_challenge @Challenge.id && @challenge.unfollow_user current_user.id
+    if current_user.unfollow_challenge @Challenge.id
       respond_to do |format|
       format.js {render inline: "location.reload();" }
        end
