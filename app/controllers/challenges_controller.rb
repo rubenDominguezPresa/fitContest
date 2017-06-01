@@ -40,6 +40,7 @@ class ChallengesController < ApplicationController
           if duration=0 
             duration=track.duration
             duration=0000
+            duration=duration.to_time
           else
             duration= duration.to_time + (track.duration.to_time.hour).hour
             duration= duration.to_time + (track.duration.to_time.min).minutes
