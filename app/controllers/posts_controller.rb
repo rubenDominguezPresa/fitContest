@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def index  
     @posts = Post.of_followed_users(current_user.following).order('created_at ASC').page params[:page]
-    @posts = @posts+(current_user.posts.order('created_at DESC').page params[:page])
+    @posts = @posts+(current_user.posts.order('created_at ASC').page params[:page])
     challenges = current_user.challenges
     challenge_posts=[]
     challenges.each do |challenge|
