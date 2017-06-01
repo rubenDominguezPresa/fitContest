@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       challenge_posts=challenge_posts+(challenge.posts.order('created_at ASC').page params[:page])
     end
     @posts=@posts+challenge_posts
-    @posts.sort {|a,b| a.created_at <=> b.created_at}
+    @post=@posts.sort {|a,b| b.created_at <=> a.created_at}
     @posts=Kaminari.paginate_array(@posts).page(params[:page])
     @post = current_user.posts.build
     @users = User.all
@@ -92,7 +92,7 @@ class PostsController < ApplicationController
   end
   
   def browse 
-    @posts = Post.all.order('created_at DESC').page params[:page]
+    @posts = Post.all.order('created_at ASC').page params[:page]
   end  
 
 end
