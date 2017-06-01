@@ -43,7 +43,7 @@ class ChallengesController < ApplicationController
             duration= duration.to_time + (track.duration.to_time.hour).hour
             duration= duration.to_time + (track.duration.to_time.min).minutes
             duration= duration.to_time + (track.duration.to_time.sec).seconds
-            duration= duration.strftime("%H:%M:%S")
+            #duration= duration.strftime("%H:%M:%S")
           end 
           if (track.distance !=nil)
             distance=distance+track.distance
