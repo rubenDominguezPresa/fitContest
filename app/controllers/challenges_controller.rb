@@ -138,14 +138,14 @@ class ChallengesController < ApplicationController
 
   def follow()  
     #.create(following_id: challenge_id)
-    @challenge.users.push=current_user
-    current_user.challenges.push=@challenge
+    @challenge.users.push current_user
+    current_user.challenges.push @challenge
 
   end
 
   def unfollow()
-    @challenge.users.delete=current_user
-    current_user.challenges.delete=@challenge
+    @challenge.users.delete current_user
+    current_user.challenges.delete @challenge
   end 
   private
 
