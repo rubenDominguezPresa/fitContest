@@ -135,6 +135,18 @@ class ChallengesController < ApplicationController
     end
   end
 
+
+  def follow(challenge_id)  
+    #.create(following_id: challenge_id)
+    @challenge.users.push=current_user
+    current_user.challenges.push=@challenge
+
+  end
+
+  def unfollow(challenge_id)
+    @challenge.users.delete=current_user
+    current_user.challenges.delete=@challenge
+  end 
   private
 
   def challenge_params
@@ -155,17 +167,5 @@ class ChallengesController < ApplicationController
   def browse 
     @challenges = Post.all.order('created_at DESC').page params[:page]
   end
-
-  def follow(challenge_id)  
-    #.create(following_id: challenge_id)
-    @challenge.users.push=current_user
-    current_user.challenges.push=@challenge
-
-  end
-
-  def unfollow(challenge_id)
-    @challenge.users.delete=current_user
-    current_user.challenges.delete=@challenge
-  end 
 
 end
