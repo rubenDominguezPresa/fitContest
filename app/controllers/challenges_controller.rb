@@ -39,12 +39,11 @@ class ChallengesController < ApplicationController
         if tracks.include?(track)
           if duration=0 
             duration=track.duration
-            duration=0000
-            duration=duration.to_time
           else
             duration= duration.to_time + (track.duration.to_time.hour).hour
             duration= duration.to_time + (track.duration.to_time.min).minutes
             duration= duration.to_time + (track.duration.to_time.sec).seconds
+            duration= duration.strftime("%H:%M:%S")
           end 
           if (track.distance !=nil)
             distance=distance+track.distance
@@ -54,7 +53,7 @@ class ChallengesController < ApplicationController
           end
         end
       end
-      @result<<{:user=>user, :duration=>duration.strftime("%H:%M:%S"), :distance=>distance, :quantity=>quantity }
+      @result<<{:user=>user, :duration=>duration, :distance=>distance, :quantity=>quantity }
     end
     render partial: 'layouts/ranking'
   end
