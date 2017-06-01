@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track, :calendar]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :like, :ranking, :posts, :track, :calendar, :follow, :unfollow]
   before_action :owned_challenge, only: [:edit ,:update, :destroy]
   respond_to :html, :js
 
@@ -136,14 +136,14 @@ class ChallengesController < ApplicationController
   end
 
 
-  def follow(challenge_id)  
+  def follow()  
     #.create(following_id: challenge_id)
     @challenge.users.push=current_user
     current_user.challenges.push=@challenge
 
   end
 
-  def unfollow(challenge_id)
+  def unfollow()
     @challenge.users.delete=current_user
     current_user.challenges.delete=@challenge
   end 
