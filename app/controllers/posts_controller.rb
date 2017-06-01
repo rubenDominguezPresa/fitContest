@@ -4,12 +4,12 @@ class PostsController < ApplicationController
   before_action :owned_post, only: [:edit, :update, :destroy]
 
   def index  
-    @posts = Post.of_followed_users(current_user.following).order('created_at DESC').page params[:page]
+    @posts = Post.of_followed_users(current_user.following).order('created_at ASC').page params[:page]
     @posts = @posts+(current_user.posts.order('created_at DESC').page params[:page])
     challenges = current_user.challenges
     challenge_posts=[]
     challenges.each do |challenge|
-      challenge_posts=challenge_posts+(challenge.posts.order('created_at DESC').page params[:page])
+      challenge_posts=challenge_posts+(challenge.posts.order('created_at ASC').page params[:page])
     end
     @posts=@posts+challenge_posts
     @posts.sort {|a,b| a.created_at <=> b.created_at}
